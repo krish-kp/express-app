@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    app: exp
+    app: exp-app
   managedFields:
     - apiVersion: apps/v1
       fieldsType: FieldsV1
@@ -47,7 +47,7 @@ metadata:
               'f:terminationGracePeriodSeconds': {}
       manager: GoogleCloudConsole
       operation: Update
-      time: '2021-05-16T20:23:26Z'
+      time: '2021-05-18T01:10:26Z'
     - apiVersion: apps/v1
       fieldsType: FieldsV1
       fieldsV1:
@@ -81,14 +81,14 @@ metadata:
           'f:updatedReplicas': {}
       manager: kube-controller-manager
       operation: Update
-      time: '2021-05-16T20:23:34Z'
-  name: exp
+      time: '2021-05-18T01:10:36Z'
+  name: exp-app
   namespace: default
 spec:
   replicas: 3
   selector:
     matchLabels:
-      app: exp
+      app: exp-app
   strategy:
     rollingUpdate:
       maxSurge: 25%
@@ -97,7 +97,7 @@ spec:
   template:
     metadata:
       labels:
-        app: exp
+        app: exp-app
     spec:
       containers:
         - image: gcr.io/mindful-linker-313918/github_krish-kp_express-app
@@ -108,7 +108,7 @@ apiVersion: autoscaling/v2beta1
 kind: HorizontalPodAutoscaler
 metadata:
   labels:
-    app: exp
+    app: exp-app
   managedFields:
     - apiVersion: autoscaling/v2beta1
       fieldsType: FieldsV1
@@ -127,7 +127,7 @@ metadata:
             'f:name': {}
       manager: GoogleCloudConsole
       operation: Update
-      time: '2021-05-16T20:23:26Z'
+      time: '2021-05-18T01:10:26Z'
     - apiVersion: autoscaling/v1
       fieldsType: FieldsV1
       fieldsV1:
@@ -139,8 +139,8 @@ metadata:
           'f:currentReplicas': {}
       manager: vpa-recommender
       operation: Update
-      time: '2021-05-16T20:23:42Z'
-  name: exp-hpa-gpgz
+      time: '2021-05-18T01:10:42Z'
+  name: exp-app-hpa-a0yz
   namespace: default
 spec:
   maxReplicas: 5
@@ -153,7 +153,7 @@ spec:
   scaleTargetRef:
     apiVersion: apps/v1
     kind: Deployment
-    name: exp
+    name: exp-app
 ---
 apiVersion: v1
 kind: Service
@@ -163,7 +163,7 @@ metadata:
   finalizers:
     - service.kubernetes.io/load-balancer-cleanup
   labels:
-    app: exp
+    app: exp-app
   managedFields:
     - apiVersion: v1
       fieldsType: FieldsV1
@@ -188,7 +188,7 @@ metadata:
           'f:type': {}
       manager: GoogleCloudConsole
       operation: Update
-      time: '2021-05-16T20:42:52Z'
+      time: '2021-05-18T01:13:37Z'
     - apiVersion: v1
       fieldsType: FieldsV1
       fieldsV1:
@@ -201,18 +201,18 @@ metadata:
             'f:ingress': {}
       manager: kube-controller-manager
       operation: Update
-      time: '2021-05-16T20:43:31Z'
-  name: exp-service
+      time: '2021-05-18T01:14:16Z'
+  name: exp-app-service
   namespace: default
 spec:
-  clusterIP: 10.8.5.117
+  clusterIP: 10.112.3.115
   externalTrafficPolicy: Cluster
   ports:
-    - nodePort: 31328
+    - nodePort: 32457
       port: 80
       protocol: TCP
-      targetPort: 3000
+      targetPort: 80
   selector:
-    app: exp
+    app: exp-app
   sessionAffinity: None
   type: LoadBalancer
